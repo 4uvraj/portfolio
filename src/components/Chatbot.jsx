@@ -359,18 +359,15 @@ const Chatbot = () => {
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
 
-  const mountedRef = useRef(false);
+  const chatContainerRef = useRef(null);
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
   };
 
   useEffect(() => {
-    // Don't auto-scroll on initial mount — it pulls the whole page down to the chatbot
-    if (!mountedRef.current) {
-      mountedRef.current = true;
-      return;
-    }
     scrollToBottom();
   }, [messages, isTyping]);
 
@@ -481,7 +478,7 @@ const Chatbot = () => {
           </div>
 
           {/* Messages */}
-          <div className="h-96 overflow-y-auto p-5 flex flex-col gap-4 no-scrollbar">
+          <div ref={chatContainerRef} className="h-96 overflow-y-auto p-5 flex flex-col gap-4 no-scrollbar">
             {messages.map((msg, index) => (
               <ChatMessage
                 key={msg.id}
