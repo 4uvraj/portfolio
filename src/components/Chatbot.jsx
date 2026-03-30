@@ -359,11 +359,18 @@ const Chatbot = () => {
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
 
+  const mountedRef = useRef(false);
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   useEffect(() => {
+    // Don't auto-scroll on initial mount — it pulls the whole page down to the chatbot
+    if (!mountedRef.current) {
+      mountedRef.current = true;
+      return;
+    }
     scrollToBottom();
   }, [messages, isTyping]);
 
