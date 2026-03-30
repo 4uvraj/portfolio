@@ -124,7 +124,7 @@ const Hero = () => {
 
       {/* ── Full-screen background photo ── */}
       <div className="absolute inset-0 z-0">
-        <picture className="w-full h-full">
+        <picture className="w-full h-full block">
           {/* Portrait photo for mobile — tall image frames the subject better */}
           <source media="(max-width: 767px)" srcSet="/profile-mobile.jpg" />
           {/* Landscape lake photo for desktop */}
@@ -133,18 +133,29 @@ const Hero = () => {
             src="/profile-bg.jpg"
             alt="Yuvraj Kag"
             className="w-full h-full object-cover"
-            style={{ objectPosition: 'right center' }}
+            style={{ objectPosition: 'center top' }}
           />
         </picture>
-        {/* Multi-layer gradient overlay: black on left for text, fades right */}
+
+        {/* ── Desktop gradient: heavy black left → transparent right ── */}
         <div
-          className="absolute inset-0"
+          className="absolute inset-0 hidden md:block"
           style={{
             background:
               'linear-gradient(100deg, rgba(0,0,0,0.98) 0%, rgba(0,0,0,0.93) 30%, rgba(0,0,0,0.65) 52%, rgba(0,0,0,0.18) 70%, rgba(0,0,0,0.0) 100%)',
           }}
         />
-        {/* Bottom fade to black */}
+
+        {/* ── Mobile gradient: fully clear top, heavy dark only at the bottom ~40% ── */}
+        <div
+          className="absolute inset-0 md:hidden"
+          style={{
+            background:
+              'linear-gradient(to bottom, rgba(0,0,0,0.0) 0%, rgba(0,0,0,0.0) 40%, rgba(0,0,0,0.75) 62%, rgba(0,0,0,0.97) 100%)',
+          }}
+        />
+
+        {/* Bottom fade to black (both breakpoints) */}
         <div
           className="absolute bottom-0 left-0 right-0 h-40"
           style={{
@@ -160,7 +171,7 @@ const Hero = () => {
       <div className="absolute inset-0 z-[1] grid-pattern opacity-10 pointer-events-none" />
 
       {/* ── Content ── */}
-      <div className="relative z-10 max-w-6xl mx-auto px-6 sm:px-10 pt-28 pb-20 w-full">
+      <div className="hero-content-wrapper relative z-10 max-w-6xl mx-auto px-6 sm:px-10 pb-10 md:pb-20 w-full">
         <motion.div
           variants={containerVariants}
           initial="hidden"

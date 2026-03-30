@@ -20,13 +20,18 @@ const Navbar = () => {
     { id: 'chatbot', label: '💬 Chat' },
   ];
 
+  // Scroll to top on page load (prevent browser scroll restoration)
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, []);
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
 
-      // Track active section
-      const sections = navItems.map(item => item.id);
-      for (const section of sections.reverse()) {
+      // Track active section — spread to avoid mutating navItems in place
+      const sections = [...navItems].reverse().map(item => item.id);
+      for (const section of sections) {
         const el = document.getElementById(section);
         if (el) {
           const rect = el.getBoundingClientRect();

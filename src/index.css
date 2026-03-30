@@ -276,15 +276,18 @@
 }
 
 /* ===================== SECTION STYLES ===================== */
-.section-padding {
-  padding: 100px 0;
+/* Hero content wrapper — pushes text below face on mobile */
+.hero-content-wrapper {
+  padding-top: 52vh;
 }
 
-@media (max-width: 768px) {
-  .section-padding {
-    padding: 70px 0;
+@media (min-width: 768px) {
+  .hero-content-wrapper {
+    padding-top: 7rem;
   }
 }
+
+
 
 /* Orb effects */
 .orb {
